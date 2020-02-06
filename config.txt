@@ -1,0 +1,7 @@
+filename = InputFile_10000.root
+path = /home/topqproject/src/palo/input
+batch_size = 1000
+alpha = 0.001
+iteration = 0
+path_to_save = /home/topqproject/src/palo/saved/topqproject_model_DNN0
+saved_as = topqproject_model_DNN0
