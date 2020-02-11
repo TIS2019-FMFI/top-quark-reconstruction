@@ -85,20 +85,25 @@ def get_background(result_in, matica_s_in, lst, iteration, batch_size, ratio):
     return matica_s, result
 
 
-def scaling(f, batch_size):
+def scaling(f, batch_size,minimum,maximum,run_minmax):
     scaler = StandardScaler()
     iteration = 0
+    total = 0
     while True:
         pom = dump_root_details(f, batch_size, iteration)
         if pom is None:
+            if run_minmax == "1":
+                print(total)
             return scaler
+
+        if run_minmax == "1":
+            total += minmax(pom ,minimum, maximum)
         X,Y = pom
         scaler.fit(X)
         iteration += 1
 
 def training_sets(f, batch_size, iteration, scale):
     XY = dump_root_details(f, batch_size, iteration)
-
     if XY is None: return None, None
     X = np.array(XY[0])
     Y = np.array(XY[1])
@@ -106,14 +111,13 @@ def training_sets(f, batch_size, iteration, scale):
     return scaler.fit_transform(X), Y
 
 
-def minmax(f):
-    maximum = 500000
-    minimum = -500000
+def minmax(data,minimum0,maximum0):
+    maximum = int(maximum0)
+    minimum = int(minimum0)
     count = 0
     pom=0
-    for prvok in f[0]:
-        if 1 == f[1][pom]:
-            if min(prvok) < minimum or max(prvok) > maximum:
-                count += 1
+    for prvok in data[0]:
+        if min(prvok) < minimum or max(prvok) > maximum:
+            count += 1
         pom+=1
     return count
