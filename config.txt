@@ -1,0 +1,20 @@
+filename = InputFile_10000.root
+path = /home/topqproject/src/palo/input
+batch_size = 1000
+alpha = 0.001
+iteration = 0
+path_to_save = /home/topqproject/src/palo/saved/topqproject_model_DNN0
+saved_as = topqproject_model_DNN_test
+minimum = -500000
+maximum = 500000
+run_minmax = 1
+loss = mse
+metrics = accuracy
+monitor = val_acc
+mode = auto
+512,relu
+256,relu,10e-9
+128,relu
+64,relu
+32,relu
+1,sigmoid
